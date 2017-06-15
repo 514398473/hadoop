@@ -9,30 +9,36 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-
 /**
  * 
  * 此处填写类简介
  * <p>
  * 此处填写类说明
  * </p>
+ * 
  * @author xuz-d
- * @since jdk1.6
- * 2017年6月14日
- *  
+ * @since jdk1.6 2017年6月14日
+ * 
  */
 
-public class FlowCountMapper extends Mapper<LongWritable, Text, Text, Flow>{
+public class FlowCountMapper extends Mapper<LongWritable, Text, Flow, Text> {
 
-	/** 
-	  * {@inheritDoc}   
-	  * @see org.apache.hadoop.mapreduce.Mapper#map(java.lang.Object, java.lang.Object, org.apache.hadoop.mapreduce.Mapper.Context) 
-	  */
+	private Flow flow = new Flow();
+	private Text text = new Text();
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.apache.hadoop.mapreduce.Mapper#map(java.lang.Object,
+	 *      java.lang.Object, org.apache.hadoop.mapreduce.Mapper.Context)
+	 */
 	@Override
 	protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 		String line = value.toString();
 		String[] values = line.split("\t");
-		context.write(new Text(values[1]), new Flow(Long.valueOf(values[values.length - 3]), Long.valueOf(values[values.length - 2]),values[1]));
+		flow.set(Long.valueOf(values[1]), Long.valueOf(values[2]));
+		text.set(values[0]);
+		context.write(flow, text);
 	}
-	
+
 }

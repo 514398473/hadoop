@@ -5,7 +5,6 @@ package com.xz.bigdata.mapruduce.flowcountsort;
 
 import java.io.IOException;
 
-import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
@@ -19,23 +18,11 @@ import org.apache.hadoop.mapreduce.Reducer;
  * @since jdk1.6 2017年6月14日
  */
 
-public class FlowCountReducer extends Reducer<Text, Flow, Flow, NullWritable> {
+public class FlowCountReducer extends Reducer<Flow, Text, Text, Flow> {
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.apache.hadoop.mapreduce.Reducer#reduce(java.lang.Object,
-	 *      java.lang.Iterable, org.apache.hadoop.mapreduce.Reducer.Context)
-	 */
 	@Override
-	protected void reduce(Text key, Iterable<Flow> values, Context context) throws IOException, InterruptedException {
-		long sumUpFlow = 0;
-		long sumDownFlow = 0;
-		for (Flow flow : values) {
-			sumUpFlow += flow.getUpflow();
-			sumDownFlow += flow.getDownflow();
-		}
-		context.write(new Flow(sumUpFlow, sumDownFlow,key.toString()),NullWritable.get());
+	protected void reduce(Flow key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+		context.write(values.iterator().next(), key);
 	}
 
 }

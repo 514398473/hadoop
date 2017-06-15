@@ -23,7 +23,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class FlowJob {
 
-	@SuppressWarnings("resource")
 	public static void main(String[] args) throws Exception {
 		Configuration configuration = new Configuration();
 		FileSystem fileSystem = FileSystem.get(configuration);
@@ -35,8 +34,8 @@ public class FlowJob {
 		job.setMapOutputValueClass(Flow.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Flow.class);
-		FileInputFormat.setInputPaths(job, new Path("/flowcount/input"));
-		Path outputPath = new Path("/flowcount/output");
+		FileInputFormat.setInputPaths(job, new Path("E:/input"));
+		Path outputPath = new Path("E:/output");
 		if (fileSystem.exists(outputPath)) {
 			fileSystem.delete(outputPath, true);
 		}

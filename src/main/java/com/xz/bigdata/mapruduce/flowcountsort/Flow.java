@@ -24,7 +24,6 @@ public class Flow implements WritableComparable<Flow> {
 	private long upflow;
 	private long downflow;
 	private long sumflow;
-	private String phone;
 
 	/**
 	 * {@inheritDoc}
@@ -36,7 +35,6 @@ public class Flow implements WritableComparable<Flow> {
 		out.writeLong(upflow);
 		out.writeLong(downflow);
 		out.writeLong(sumflow);
-		out.writeUTF(phone);
 
 	}
 
@@ -50,7 +48,6 @@ public class Flow implements WritableComparable<Flow> {
 		this.upflow = in.readLong();
 		this.downflow = in.readLong();
 		this.sumflow = in.readLong();
-		this.phone = in.readUTF();
 	}
 
 	public long getUpflow() {
@@ -77,14 +74,6 @@ public class Flow implements WritableComparable<Flow> {
 		this.sumflow = sumflow;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 	public Flow() {
 	}
 
@@ -94,6 +83,12 @@ public class Flow implements WritableComparable<Flow> {
 		this.sumflow = upflow + downflow;
 	}
 
+	public void set(long upflow, long downflow) {
+		this.upflow = upflow;
+		this.downflow = downflow;
+		this.sumflow = upflow + downflow;
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -101,7 +96,7 @@ public class Flow implements WritableComparable<Flow> {
 	 */
 	@Override
 	public String toString() {
-		return phone + "\t" + upflow + "\t" + downflow + "\t" + sumflow;
+		return upflow + "\t" + downflow + "\t" + sumflow;
 	}
 
 	/**
@@ -112,20 +107,6 @@ public class Flow implements WritableComparable<Flow> {
 	@Override
 	public int compareTo(Flow flow) {
 		return this.sumflow>flow.getSumflow()?-1:1;
-	}
-
-	/**  
-	 * Flow
-	 * @param upflow
-	 * @param downflow
-	 * @param sumflow
-	 * @param phone    
-	 */
-	public Flow(long upflow, long downflow, String phone) {
-		this.upflow = upflow;
-		this.downflow = downflow;
-		this.sumflow = upflow + downflow;
-		this.phone = phone;
 	}
 
 }

@@ -23,7 +23,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class FlowJob {
 
-	@SuppressWarnings("resource")
 	public static void main(String[] args) throws Exception {
 		Configuration configuration = new Configuration();
 		FileSystem fileSystem = FileSystem.get(configuration);

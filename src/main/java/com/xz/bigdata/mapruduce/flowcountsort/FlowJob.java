@@ -6,7 +6,6 @@ package com.xz.bigdata.mapruduce.flowcountsort;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -24,7 +23,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class FlowJob {
 
-	@SuppressWarnings("resource")
 	public static void main(String[] args) throws Exception {
 		Configuration configuration = new Configuration();
 		FileSystem fileSystem = FileSystem.get(configuration);
@@ -32,12 +30,12 @@ public class FlowJob {
 		job.setJarByClass(FlowJob.class);
 		job.setMapperClass(FlowCountMapper.class);
 		job.setReducerClass(FlowCountReducer.class);
-		job.setMapOutputKeyClass(Text.class);
-		job.setMapOutputValueClass(Flow.class);
-		job.setOutputKeyClass(Flow.class);
-		job.setOutputValueClass(NullWritable.class);
-		FileInputFormat.setInputPaths(job, new Path("/flowcount/input"));
-		Path outputPath = new Path("/flowcount/output");
+		job.setMapOutputKeyClass(Flow.class);
+		job.setMapOutputValueClass(Text.class);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(Flow.class);
+		FileInputFormat.setInputPaths(job, new Path("e:/output"));
+		Path outputPath = new Path("e:/output1");
 		if (fileSystem.exists(outputPath)) {
 			fileSystem.delete(outputPath, true);
 		}
