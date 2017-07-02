@@ -15,11 +15,10 @@
 -->
 
 <!-- Put site-specific property overrides in this file. -->
-
 <configuration>
-<!-- 指定mr运行在yarn上 -->
+<!-- 指定mr框架为yarn方式 -->
 <property>
-	<name>mapreduce.framework.name</name>
-	<value>yarn</value>
+<name>mapreduce.framework.name</name>
+<value>yarn</value>
 </property>
 </configuration>

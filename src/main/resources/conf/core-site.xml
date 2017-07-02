@@ -15,16 +15,21 @@
 -->
 
 <!-- Put site-specific property overrides in this file. -->
-
 <configuration>
-<!-- 指定HADOOP所使用的文件系统schema（URI），HDFS的老大（NameNode）的地址 -->
+<!-- 指定hdfs的nameservice为ns1 -->
 <property>
-	<name>fs.defaultFS</name>
-	<value>hdfs://study1:9000</value>
+<name>fs.defaultFS</name>
+<value>hdfs://xuzheng/</value>
 </property>
-<!-- 指定hadoop运行时产生文件的存储目录 -->
+<!-- 指定hadoop临时目录 -->
 <property>
-	<name>hadoop.tmp.dir</name>
-	<value>/home/hadoop/data/hadoop/data</value>
+<name>hadoop.tmp.dir</name>
+<value>/home/hadoop/data/hadoopdata/</value>
+</property>
+
+<!-- 指定zookeeper地址 -->
+<property>
+<name>ha.zookeeper.quorum</name>
+<value>study1:2181,study2:2181,study3:2181</value>
 </property>
 </configuration>
